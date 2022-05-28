@@ -1,45 +1,67 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { Card } from "./components/Card";
+import { useState, useEffect } from "react";
+import { globalCss } from "@stitches/react";
+import axios from "axios";
+
+import { Box, Main, Section } from "./styles/stitchesStyles";
+
+const globalStyles = globalCss({
+  body: {
+    fontFamily: "Nunito, sans-serif",
+    margin: 0,
+    padding: 0,
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
+  globalStyles();
+
+  const [location, setLocation] = useState<Boolean>(false);
+  const [weather, setWeather] = useState<any>();
+
+  const getMainWeather = async (lat: number, long: number): Promise<any> => {
+    let res = await axios.get(
+      "http://api.openweathermap.org/data/2.5/weather",
+      {
+        params: {
+          lat: lat,
+          lon: long,
+          appid: import.meta.env.VITE_APP_TOKEN,
+          lang: "PT",
+          units: "metric",
+        },
+      }
+    );
+    setWeather(res.data);
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position: GeolocationPosition) => {
+        getMainWeather(position.coords.latitude, position.coords.longitude);
+        setLocation(true);
+      }
+    );
+  }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+    <Main>
+      <Section>
+        <Box>
+          <h4 style={{ textAlign: "center", color: "#f5f5f5", margin: 0 }}>
+            Previsão do Tempo
+          </h4>
+          {location && weather != undefined ? (
+            <Card {...weather} />
+          ) : (
+            <p style={{ color: "#ffffff" }}>
+              Você precisa autorizar sua localização
+            </p>
+          )}
+        </Box>
+      </Section>
+    </Main>
+  );
 }
 
-export default App
+export default App;
