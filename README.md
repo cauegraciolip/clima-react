@@ -4,7 +4,7 @@
 
 <div>
     <a href="https://www.linkedin.com/in/yuri-silva99/" target="_blank">
-        <img src="https://img.shields.io/static/v1?label=Author&message=Yuri&color=00ba6d&style=for-the-badge&logo=LinkedIn" alt="Author: Yuri">
+        <img src="https://img.shields.io/static/v1?label=Author&message=Yuri&color=00ba6d&style=for-the-badge&logo=LinkedIn" alt="Author: CAUÊ">
     </a>
     <a href="#">
         <img src="https://img.shields.io/static/v1?label=Language&message=Typescript&color=blue&style=for-the-badge&logo=Typescript" alt="Language: Typescript">
