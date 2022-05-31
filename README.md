@@ -4,7 +4,7 @@
 
 <div>
     <a href="https://www.linkedin.com/in/cauegraciolip/" target="_blank">
-        <img src="https://img.shields.io/static/v1?label=Author&message=Cauê&color=00ba6d&style=for-the-badge&logo=LinkedIn" alt="Author: Cauê">
+        <img src="https://img.shields.io/static/v1?label=Author&message=Caue&color=00ba6d&style=for-the-badge&logo=LinkedIn" alt="Author: Cauê">
     </a>
     <a href="#">
         <img src="https://img.shields.io/static/v1?label=Language&message=Typescript&color=blue&style=for-the-badge&logo=Typescript" alt="Language: Typescript">
