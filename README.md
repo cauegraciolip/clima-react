@@ -3,7 +3,7 @@
 </h1>
 
 <div>
-    <a href="https://www.linkedin.com/in/yuri-silva99/" target="_blank">
+    <a href="https://www.linkedin.com/in/cauegraciolip/" target="_blank">
         <img src="https://img.shields.io/static/v1?label=Author&message=Yuri&color=00ba6d&style=for-the-badge&logo=LinkedIn" alt="Author: CAUÊ">
     </a>
     <a href="#">
