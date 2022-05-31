@@ -3,6 +3,9 @@ import { CardSection, CardDiv } from "../styles/stitchesStyles";
 import { mesNome, diaNome, icons } from "../utils/utils";
 
 import { BsFillGeoAltFill } from "react-icons/bs";
+import { RiWindyFill } from "react-icons/ri";
+
+import { WeatherInfo } from "../types/types";
 
 const topControl = css({
   display: "flex",
@@ -28,29 +31,7 @@ const bottomControl = css({
   padding: "0 15px",
 });
 
-type ICardInfo = {
-  temp: number;
-  temp_min: number;
-  temp_max: number;
-  pressure: number;
-  humidity: number;
-  feels_like: number;
-};
-
-type IWeatherInfo = {
-  id: number;
-  main: string;
-  description: string;
-  icon: string;
-};
-
-type IWeather = {
-  main: ICardInfo;
-  weather: Array<IWeatherInfo>;
-  name: string;
-};
-
-export function Card(props: IWeather) {
+export function Card(props: WeatherInfo) {
   const icon: string = props.weather[0].icon;
   const now = new Date();
 
@@ -91,7 +72,7 @@ export function Card(props: IWeather) {
           }}
         >
           <BsFillGeoAltFill style={{ color: "#ECBE13" }} />
-          {props.name}
+          {`${props.name} - ${props.sys.country}`}
         </span>
       </CardDiv>
     </CardSection>
