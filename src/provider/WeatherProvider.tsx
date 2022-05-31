@@ -14,7 +14,7 @@ export const WeatherProvider = (props: any) => {
 
   const getMainWeather = async (lat: number, long: number): Promise<any> => {
     let res = await axios.get(
-      "http://api.openweathermap.org/data/2.5/weather",
+      "https://api.openweathermap.org/data/2.5/weather",
       {
         params: {
           lat: lat,
