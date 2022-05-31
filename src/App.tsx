@@ -1,45 +1,41 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { Card } from "./components/Card";
+import { globalCss } from "@stitches/react";
+
+import { Box, Section } from "./styles/stitchesStyles";
+
+import { useWeather } from "./provider/WeatherProvider";
+
+const globalStyles = globalCss({
+  body: {
+    fontFamily: "Nunito, sans-serif",
+    margin: 0,
+    padding: 0,
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
+  globalStyles();
+
+  const { weather } = useWeather();
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+    // <Main>
+    <Section>
+      <Box>
+        <h1 style={{ textAlign: "center", color: "#f5f5f5", margin: 0 }}>
+          Temperatura atual
+        </h1>
+        {weather != undefined ? (
+          <Card {...weather} />
+        ) : (
+          <p style={{ color: "#ffffff" }}>
+            Você precisa autorizar sua localização
+          </p>
+        )}
+      </Box>
+    </Section>
+    // </Main>
+  );
 }
 
-export default App
+export default App;
