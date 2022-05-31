@@ -3,7 +3,9 @@ import axios from "axios";
 
 import { Weather } from "../types/types";
 
-export const WeatherContext = createContext<Weather>({
+type InitialWeather = Pick<Weather, "weather">;
+
+export const WeatherContext = createContext<InitialWeather>({
   weather: undefined,
 });
 

@@ -26,7 +26,22 @@ function App() {
           Temperatura atual
         </h1>
         {weather != undefined ? (
-          <Card {...weather} />
+          <Card
+            main={{
+              temp: 0,
+              temp_min: 0,
+              temp_max: 0,
+              pressure: 0,
+              humidity: 0,
+              feels_like: 0,
+            }}
+            weather={[]}
+            sys={{
+              country: "",
+            }}
+            name={""}
+            {...weather}
+          />
         ) : (
           <p style={{ color: "#ffffff" }}>
             Você precisa autorizar sua localização
