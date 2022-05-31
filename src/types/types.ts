@@ -24,7 +24,7 @@ type Sys = {
 
 export type WeatherInfo = {
   main: ActualInfo;
-  weather: Array<MainDescription>;
+  weather?: Array<MainDescription>;
   sys: Sys;
   name: string;
 };
