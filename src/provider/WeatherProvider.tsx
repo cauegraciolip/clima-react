@@ -1,20 +1,28 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import axios from "axios";
 
 import { Weather } from "../types/types";
 
-type InitialProvider = Pick<Weather, "weather">;
+type InitialContent = {
+  weather?: Weather;
+};
 
-export const WeatherContext = createContext<InitialProvider>({
+export const WeatherContext = createContext<InitialContent>({
   weather: undefined,
 });
 
-export const WeatherProvider = (props: any) => {
-  const [weather, setWeather] = useState();
+export const WeatherProvider = (props: { children: ReactElement }) => {
+  const [weather, setWeather] = useState<Weather>();
 
-  const getMainWeather = async (lat: number, long: number): Promise<any> => {
+  const getMainWeather = async (lat: number, long: number): Promise<void> => {
     let res = await axios.get(
-      "http://api.openweathermap.org/data/2.5/weather",
+      "https://api.openweathermap.org/data/2.5/weather",
       {
         params: {
           lat: lat,

@@ -1,5 +1,8 @@
 export type Weather = {
-  weather: undefined;
+  weather?: Array<MainDescription>;
+  sys: Sys;
+  main: ActualInfo;
+  name: string;
 };
 
 type ActualInfo = {
