@@ -1,5 +1,5 @@
 export type Weather = {
-  weather?: Array<MainDescription>;
+  weather: Array<MainDescription>;
   sys: Sys;
   main: ActualInfo;
   name: string;
@@ -23,11 +23,4 @@ type MainDescription = {
 
 type Sys = {
   country: string;
-};
-
-export type WeatherInfo = {
-  main: ActualInfo;
-  weather?: Array<MainDescription>;
-  sys: Sys;
-  name: string;
 };
