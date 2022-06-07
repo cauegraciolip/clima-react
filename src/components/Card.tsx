@@ -33,13 +33,33 @@ const bottomControl = css({
 export function Card() {
   const { weather } = useWeather();
 
-  const icon: string = weather != undefined ? weather.weather[0].icon : "";
+  function capitalize(string: string) {
+    let palavra = string.split(" ");
+    for (let index = 0; index < palavra.length; index++) {
+      palavra[index] =
+        palavra[index][0].toUpperCase() + palavra[index].substring(1);
+    }
+
+    return palavra.join(" ");
+  }
+
+  const infoDetails =
+    weather != undefined
+      ? {
+          icon: weather.weather[0].icon,
+          city: weather.name,
+          country: weather.sys.country,
+          temp: String(weather.main.temp).slice(0, 2),
+          details: capitalize(weather.weather[0].description),
+        }
+      : {};
+
   const now = new Date();
 
   let image = "";
 
   for (let icone of icons) {
-    if (icone.id == icon) {
+    if (icone.id == infoDetails.icon) {
       image = icone.image;
     }
   }
@@ -55,30 +75,46 @@ export function Card() {
         </section>
         <section className={bottomControl()}>
           <span style={{ fontSize: 40 }}>
-            {weather != undefined ? String(weather.main.temp).slice(0, 2) : ""}
+            {infoDetails.temp}
             <sup style={{ color: "#ECBE13", fontSize: 22, fontWeight: 400 }}>
               °C
             </sup>
           </span>
           <img style={{ width: "70px", height: "auto" }} src={image} />
         </section>
-        <span
+        <section
           style={{
-            fontSize: 14,
             display: "flex",
             alignItems: "center",
-            padding: "0 15px",
-            gap: 5,
-            fontWeight: 400,
+            justifyContent: "space-between",
           }}
         >
-          <BsFillGeoAltFill style={{ color: "#ECBE13" }} />
-          {weather != undefined ? (
-            <>{`${weather.name} - ${weather.sys.country}`}</>
-          ) : (
-            ""
-          )}
-        </span>
+          <span
+            style={{
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              padding: "0 15px",
+              gap: 5,
+              fontWeight: 400,
+            }}
+          >
+            <BsFillGeoAltFill style={{ color: "#ECBE13" }} />
+            {`${infoDetails.city} - ${infoDetails.country}`}
+          </span>
+          <span
+            style={{
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              padding: "0 15px",
+              gap: 5,
+              fontWeight: 400,
+            }}
+          >
+            {infoDetails.details}
+          </span>
+        </section>
       </CardDiv>
     </CardSection>
   );
