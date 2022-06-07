@@ -3,9 +3,8 @@ import { CardSection, CardDiv } from "../styles/stitchesStyles";
 import { mesNome, diaNome, icons } from "../utils/utils";
 
 import { BsFillGeoAltFill } from "react-icons/bs";
-import { RiWindyFill } from "react-icons/ri";
 
-import { WeatherInfo } from "../types/types";
+import { useWeather } from "../provider/WeatherProvider";
 
 const topControl = css({
   display: "flex",
@@ -31,14 +30,36 @@ const bottomControl = css({
   padding: "0 15px",
 });
 
-export function Card(props: WeatherInfo) {
-  const icon: string = props.weather[0].icon;
+export function Card() {
+  const { weather } = useWeather();
+
+  function capitalize(string: string) {
+    let palavra = string.split(" ");
+    for (let index = 0; index < palavra.length; index++) {
+      palavra[index] =
+        palavra[index][0].toUpperCase() + palavra[index].substring(1);
+    }
+
+    return palavra.join(" ");
+  }
+
+  const infoDetails =
+    weather != undefined
+      ? {
+          icon: weather.weather[0].icon,
+          city: weather.name,
+          country: weather.sys.country,
+          temp: String(weather.main.temp).slice(0, 2),
+          details: capitalize(weather.weather[0].description),
+        }
+      : {};
+
   const now = new Date();
 
   let image = "";
 
   for (let icone of icons) {
-    if (icone.id == icon) {
+    if (icone.id == infoDetails.icon) {
       image = icone.image;
     }
   }
@@ -54,26 +75,46 @@ export function Card(props: WeatherInfo) {
         </section>
         <section className={bottomControl()}>
           <span style={{ fontSize: 40 }}>
-            {String(props.main.temp).slice(0, 2)}
+            {infoDetails.temp}
             <sup style={{ color: "#ECBE13", fontSize: 22, fontWeight: 400 }}>
               °C
             </sup>
           </span>
           <img style={{ width: "70px", height: "auto" }} src={image} />
         </section>
-        <span
+        <section
           style={{
-            fontSize: 14,
             display: "flex",
             alignItems: "center",
-            padding: "0 15px",
-            gap: 5,
-            fontWeight: 400,
+            justifyContent: "space-between",
           }}
         >
-          <BsFillGeoAltFill style={{ color: "#ECBE13" }} />
-          {`${props.name} - ${props.sys.country}`}
-        </span>
+          <span
+            style={{
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              padding: "0 15px",
+              gap: 5,
+              fontWeight: 400,
+            }}
+          >
+            <BsFillGeoAltFill style={{ color: "#ECBE13" }} />
+            {`${infoDetails.city} - ${infoDetails.country}`}
+          </span>
+          <span
+            style={{
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              padding: "0 15px",
+              gap: 5,
+              fontWeight: 400,
+            }}
+          >
+            {infoDetails.details}
+          </span>
+        </section>
       </CardDiv>
     </CardSection>
   );
