@@ -3,9 +3,8 @@ import { CardSection, CardDiv } from "../styles/stitchesStyles";
 import { mesNome, diaNome, icons } from "../utils/utils";
 
 import { BsFillGeoAltFill } from "react-icons/bs";
-import { RiWindyFill } from "react-icons/ri";
 
-import { WeatherInfo } from "../types/types";
+import { useWeather } from "../provider/WeatherProvider";
 
 const topControl = css({
   display: "flex",
@@ -31,8 +30,10 @@ const bottomControl = css({
   padding: "0 15px",
 });
 
-export function Card(props: WeatherInfo) {
-  const icon: string = props.weather[0].icon;
+export function Card() {
+  const { weather } = useWeather();
+
+  const icon: string = weather != undefined ? weather.weather[0].icon : "";
   const now = new Date();
 
   let image = "";
@@ -54,7 +55,7 @@ export function Card(props: WeatherInfo) {
         </section>
         <section className={bottomControl()}>
           <span style={{ fontSize: 40 }}>
-            {String(props.main.temp).slice(0, 2)}
+            {weather != undefined ? String(weather.main.temp).slice(0, 2) : ""}
             <sup style={{ color: "#ECBE13", fontSize: 22, fontWeight: 400 }}>
               °C
             </sup>
@@ -72,7 +73,11 @@ export function Card(props: WeatherInfo) {
           }}
         >
           <BsFillGeoAltFill style={{ color: "#ECBE13" }} />
-          {`${props.name} - ${props.sys.country}`}
+          {weather != undefined ? (
+            <>{`${weather.name} - ${weather.sys.country}`}</>
+          ) : (
+            ""
+          )}
         </span>
       </CardDiv>
     </CardSection>
